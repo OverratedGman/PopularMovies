@@ -25,10 +25,9 @@ import java.net.URL;
 public class MainActivityFragment extends Fragment {
 
     public String movieJsonStr = null;
-    final String backgroundPathBase = "http://image.tmdb.org/t/p/w185";
+    public static String[] backdropPathStrArray;
     final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     public static int numberFilms =0;
-    public static String[] finalBackdropPathStrArray;
     public MainActivityFragment() {
     }
 
@@ -36,7 +35,7 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        ImageAdapter mAdapter = new ImageAdapter();
+        ImageAdapter mAdapter = new ImageAdapter(getActivity(),backdropPathStrArray);
 
         // Set custom adapter to gridview
         GridView gridView = (GridView) rootView.findViewById(R.id.gridView);
@@ -60,6 +59,7 @@ public class MainActivityFragment extends Fragment {
 
     }
 
+
     public class fetchMovieTask extends AsyncTask<String, Void, String[]> {
 
         public String[] getMovieDataFromJson(String movieStr)
@@ -77,8 +77,7 @@ public class MainActivityFragment extends Fragment {
             numberFilms =resultsArray.length();
 
             String[] titleStrArray = new String[resultsArray.length()];
-            String[] backdropPathStrArray = new String[resultsArray.length()];
-             finalBackdropPathStrArray = new String[resultsArray.length()];
+                     backdropPathStrArray = new String[resultsArray.length()];
             String[] releaseDateStrArray = new String[resultsArray.length()];
             String[] userRatingStrArray = new String[resultsArray.length()];
             String[] overviewStrArray = new String[resultsArray.length()];
@@ -110,12 +109,6 @@ public class MainActivityFragment extends Fragment {
 
             } //loop end
 
-            for(int z=0; z<resultsArray.length();z++){
-                String temp = backgroundPathBase+backdropPathStrArray[z];
-               finalBackdropPathStrArray[z] = temp;
-
-
-            }
 
             return null;
 
@@ -199,6 +192,15 @@ public class MainActivityFragment extends Fragment {
             return null;
         }
 
+        @Override
+        protected void onPostExecute(String[] ope) {
+            super.onPostExecute(ope);
+            if(ope != null) {
+                ImageAdapter.clear();
+                ImageAdapter.addAll(ope);
+                ImageAdapter.notifyDataSetChanged();
+            }
+        }
 
     }
 }
