@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +36,11 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        ImageAdapter mAdapter = new ImageAdapter();
+
+        // Set custom adapter to gridview
+        GridView gridView = (GridView) rootView.findViewById(R.id.gridView);
+        gridView.setAdapter(mAdapter);
 
 
         return rootView;
@@ -49,7 +55,6 @@ public class MainActivityFragment extends Fragment {
 
     @Override
     public void onStart() {
-
         super.onStart();
         updateMovies();
 
@@ -108,6 +113,7 @@ public class MainActivityFragment extends Fragment {
             for(int z=0; z<resultsArray.length();z++){
                 String temp = backgroundPathBase+backdropPathStrArray[z];
                finalBackdropPathStrArray[z] = temp;
+
 
             }
 
@@ -172,7 +178,7 @@ public class MainActivityFragment extends Fragment {
             } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
-                    Log.e(LOG_TAG,"problem with internet");
+                    Log.d(LOG_TAG,"disconnected ");
                 }
                 if (reader != null) {
                     try {

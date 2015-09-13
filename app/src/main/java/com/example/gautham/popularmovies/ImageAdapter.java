@@ -17,8 +17,9 @@ public class ImageAdapter extends BaseAdapter
     private Activity activity;
     final String LOG_TAG = ImageAdapter.class.getSimpleName();
 
-    public ImageAdapter(Activity activity) {
+    public ImageAdapter() {
         super();
+        MainActivity activity = new MainActivity();
         this.activity = activity;
     }
 
@@ -32,7 +33,7 @@ public class ImageAdapter extends BaseAdapter
     @Override
     public String getItem(int position) {
         // TODO Auto-generated method stub
-        return MainActivityFragment.finalBackdropPathStrArray[position];
+        return MainActivityFragment.finalBackdropPathStrArray[position-1];
     }
 
     @Override
@@ -70,7 +71,6 @@ public class ImageAdapter extends BaseAdapter
             Picasso.with(activity).load(getItem(i)).into(view.imgView);
         }
         Log.e(LOG_TAG,"just updated view");
-
         return convertView;
     }
 }
