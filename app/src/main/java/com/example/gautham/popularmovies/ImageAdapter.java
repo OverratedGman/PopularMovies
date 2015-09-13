@@ -27,12 +27,15 @@ public class ImageAdapter extends BaseAdapter
     public ImageAdapter(Context c, String[] posters){
         this(c);
         this.posters = posters;
-        ?
     }
 
     @Override
     public int getCount() {
         return posters != null?posters.length:0;
+    }
+
+    public void clear(){
+        posters = null;
     }
 
     @Override
@@ -66,7 +69,9 @@ public class ImageAdapter extends BaseAdapter
         } else {
             imageView = (ImageView) convertView;
         }
-        Picasso.with(mContext).load(String.format("%s/%s/%s", BASE_URL, IMAGE_SIZE, posters[position])).into(imageView);
+        String url = String.format("%s/%s/%s", BASE_URL, IMAGE_SIZE, posters[position]);
+        Picasso.with(mContext).load(url).into(imageView);
+        Log.v(LOG_TAG,"final url:"+url);
         return imageView;
     }
 

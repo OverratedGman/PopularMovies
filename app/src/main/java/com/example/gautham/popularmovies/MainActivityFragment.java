@@ -28,6 +28,7 @@ public class MainActivityFragment extends Fragment {
     public static String[] backdropPathStrArray;
     final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     public static int numberFilms =0;
+    ImageAdapter imageAdapter;
     public MainActivityFragment() {
     }
 
@@ -35,11 +36,11 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        ImageAdapter mAdapter = new ImageAdapter(getActivity(),backdropPathStrArray);
+       imageAdapter = new ImageAdapter(getActivity(),backdropPathStrArray);
 
         // Set custom adapter to gridview
         GridView gridView = (GridView) rootView.findViewById(R.id.gridView);
-        gridView.setAdapter(mAdapter);
+        gridView.setAdapter(imageAdapter);
 
 
         return rootView;
@@ -89,7 +90,7 @@ public class MainActivityFragment extends Fragment {
 
                 String bdp = movieInfo.getString(OBJ_BACKDROP_PATH);
                 backdropPathStrArray[y] = bdp;
-                //Log.e(LOG_TAG,"backdrop path:"+bdp);
+                Log.e(LOG_TAG,"backdrop path:"+bdp);
 
                 String mtitle = movieInfo.getString(OBJ_TITLE);
                 titleStrArray[y] = mtitle;
@@ -196,9 +197,9 @@ public class MainActivityFragment extends Fragment {
         protected void onPostExecute(String[] ope) {
             super.onPostExecute(ope);
             if(ope != null) {
-                ImageAdapter.clear();
-                ImageAdapter.addAll(ope);
-                ImageAdapter.notifyDataSetChanged();
+                imageAdapter.clear();
+                imageAdapter.addAll(ope);
+                imageAdapter.notifyDataSetChanged();
             }
         }
 
