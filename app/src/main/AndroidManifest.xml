@@ -19,9 +19,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.gautham.popularmovies.MovieDetail"
+            android:name=".MovieDetail"
             android:label="@string/title_activity_movie_detail" >
         </activity>
+
     </application>
 
 </manifest>

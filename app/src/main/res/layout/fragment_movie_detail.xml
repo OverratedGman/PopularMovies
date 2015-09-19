@@ -8,46 +8,42 @@
     tools:context="com.example.gautham.popularmovies.MovieDetailFragment">>
 
 <ImageView
-    android:layout_width="200dp"
-    android:layout_height="300dp"
-    android:id="@+id/imageView" />
+    android:layout_width="fill_parent"
+    android:layout_height="200dp"
+    android:id="@+id/imageView"
+    android:layout_alignParentTop="true"
+    android:layout_above="@+id/movieTitleView"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true" />
 
 <TextView
-    android:layout_width="20dp"
+    android:layout_width="100dp"
     android:layout_height="55dp"
     android:id="@+id/movieTitleView"
-    android:layout_toRightOf="@+id/imageView"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
     android:gravity="center_vertical|center_horizontal"
     android:text="Movie Title"
-    android:layout_toEndOf="@id/imageView"
-    android:layout_marginTop="35dp"
-    />
+    android:layout_centerVertical="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true" />
 
 <TextView
-    android:layout_width="20dp"
+    android:layout_width="100dp"
     android:layout_height="55dp"
     android:id="@+id/movieReleaseDateView"
     android:gravity="center_vertical|center_horizontal"
     android:text="Release Date"
-    android:layout_below="@+id/movieTitleView"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
-    android:layout_toEndOf="@id/imageView"
-    android:layout_marginTop="25dp" />
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true" />
 
 <TextView
-    android:layout_width="20dp"
+    android:layout_width="100dp"
     android:layout_height="55dp"
     android:id="@+id/movieUserRating"
     android:gravity="center_vertical|center_horizontal"
     android:text="User Rating"
-    android:layout_below="@+id/movieReleaseDateView"
+    android:layout_centerVertical="true"
     android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
-    android:layout_toEndOf="@id/imageView"
-    android:layout_marginTop="25dp" />
+    android:layout_alignParentEnd="true" />
 
 <TextView
     android:layout_width="280dp"
@@ -55,10 +51,12 @@
     android:id="@+id/movieDescriptionView"
     android:gravity="center_vertical|center_horizontal"
     android:text="Movie Description"
-    android:layout_below="@+id/imageView"
+    android:capitalize="sentences"
+    android:layout_alignRight="@+id/movieUserRating"
+    android:layout_alignEnd="@+id/movieUserRating"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:layout_marginLeft="40dp"
-    android:capitalize="sentences" />
+    android:layout_alignParentBottom="true"
+    android:layout_below="@+id/movieUserRating" />
 
 </RelativeLayout>

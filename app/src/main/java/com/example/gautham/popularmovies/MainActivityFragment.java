@@ -32,6 +32,7 @@ public class MainActivityFragment extends Fragment {
     final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     public static int numberFilms =0;
     ImageAdapter imageAdapter;
+    public static String prefTemp = "popularity.desc";
     public MainActivityFragment() {
     }
 
@@ -49,7 +50,8 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.v(LOG_TAG,position+"/+/"+id);
-                 intent.putExtra("key", position);
+                String pos =""+position;
+                 intent.putExtra("key", pos);
                 getActivity().startActivity(intent);
             }
         };
@@ -58,9 +60,8 @@ public class MainActivityFragment extends Fragment {
         return rootView;
     }
 
-    private void updateMovies() {
+    public void updateMovies() {
         fetchMovieTask fetchInfo = new fetchMovieTask();
-        String prefTemp = "popularity.desc";
         fetchInfo.execute(prefTemp);
 
     }
@@ -89,37 +90,19 @@ public class MainActivityFragment extends Fragment {
             JSONArray resultsArray = filmJsonSorter.getJSONArray(OBJ_RESULTS);
             numberFilms =resultsArray.length();
 
-            //String[] titleStrArray = new String[resultsArray.length()];
+
                      backdropPathStrArray = new String[resultsArray.length()];
                      MovieObjectArray = new MovieObject[resultsArray.length()];
-           /* String[] releaseDateStrArray = new String[resultsArray.length()];
-            String[] userRatingStrArray = new String[resultsArray.length()];
-            String[] overviewStrArray = new String[resultsArray.length()];*/
 
 
             for(int y=0; y<resultsArray.length();y++) {
 
                 JSONObject movieInfo = resultsArray.getJSONObject(y);
                 String bdp= movieInfo.getString(OBJ_BACKDROP_PATH);
-
-               // backdropPathStrArray[y] = bdp;
-               // Log.e(LOG_TAG,"backdrop path:"+bdp);
-
                 String mtitle = movieInfo.getString(OBJ_TITLE);
-               // titleStrArray[y] = mtitle;
-                //Log.e(LOG_TAG,"title:"+tit);
-
                 String mdescription = movieInfo.getString(OBJ_OVERVIEW);
-                //overviewStrArray[y] = mdescription;
-               //Log.e(LOG_TAG,"description:"+description);
-
                 String reldat = movieInfo.getString(OBJ_RELEASE_DATE);
-                //releaseDateStrArray[y] = reldat;
-                //Log.e(LOG_TAG,"release date:"+reldat);
-
                 String ur = movieInfo.getString(OBJ_USER_RATING);
-                //userRatingStrArray[y] = ur;
-                //Log.e(LOG_TAG,"user rating:"+ur);
                 MovieObject MObject = new MovieObject(bdp,mtitle,mdescription,reldat,ur);
                 MovieObjectArray[y]=MObject;
             } //loop end

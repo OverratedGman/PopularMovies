@@ -1,5 +1,6 @@
 package com.example.gautham.popularmovies;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,9 +16,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment, new MainActivityFragment()).commit();
-        }
     }
 
         @Override
@@ -33,12 +31,15 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+         MainActivityFragment maf = new MainActivityFragment();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.popularMenuItem) {
+         maf.prefTemp="popular.desc";
         }
-
+        if (id == R.id.ratingMenuItem) {
+            maf.prefTemp="vote_average.desc";
+        }
+        maf.updateMovies();
         return super.onOptionsItemSelected(item);
     }
 }
