@@ -9,38 +9,36 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import android.app.Activity;
-import android.view.LayoutInflater;
 
 public class ImageAdapter extends BaseAdapter
 {
 
-    private String[] posters;
+    private Object[] movieData;
     final String LOG_TAG = ImageAdapter.class.getSimpleName();
     private Context mContext;
     public static final  String BASE_URL = "http://image.tmdb.org/t/p/";
-    public static final String IMAGE_SIZE = "w185";
+    public static final String IMAGE_SIZE = "w500";
 
     public ImageAdapter(Context c) {
         mContext = c;
     };
-    public ImageAdapter(Context c, String[] posters){
+    public ImageAdapter(Context c, Object[] movieDataObjectArray){
         this(c);
-        this.posters = posters;
+        this.movieData = movieDataObjectArray;
     }
 
     @Override
     public int getCount() {
-        return posters != null?posters.length:0;
+        return movieData != null?movieData.length:0;
     }
 
     public void clear(){
-        posters = null;
+        movieData = null;
     }
 
     @Override
-    public String getItem(int position) {
-        return posters[position];
+    public Object getItem(int position) {
+        return movieData[position];
     }
 
     @Override
@@ -49,13 +47,8 @@ public class ImageAdapter extends BaseAdapter
         return 0;
     }
 
-    public void addAll(String[] uris){
-        posters = uris;
-    }
-
-    public static class ViewHolder
-    {
-        public ImageView imgView;
+    public void addAll(String[] Add){
+        movieData = Add;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -69,7 +62,9 @@ public class ImageAdapter extends BaseAdapter
         } else {
             imageView = (ImageView) convertView;
         }
-        String url = String.format("%s/%s/%s", BASE_URL, IMAGE_SIZE, posters[position]);
+        Object temp = movieData[position];
+        Log.e(LOG_TAG,""+temp);
+        String url = String.format("%s/%s/%s", BASE_URL, IMAGE_SIZE);
         Picasso.with(mContext).load(url).into(imageView);
         Log.v(LOG_TAG,"final url:"+url);
         return imageView;

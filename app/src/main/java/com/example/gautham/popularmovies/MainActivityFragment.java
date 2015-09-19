@@ -26,6 +26,7 @@ public class MainActivityFragment extends Fragment {
 
     public String movieJsonStr = null;
     public static String[] backdropPathStrArray;
+    public static Object[] MovieObjectArray;
     final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     public static int numberFilms =0;
     ImageAdapter imageAdapter;
@@ -36,7 +37,7 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-       imageAdapter = new ImageAdapter(getActivity(),backdropPathStrArray);
+       imageAdapter = new ImageAdapter(getActivity(),MovieObjectArray);
 
         // Set custom adapter to gridview
         GridView gridView = (GridView) rootView.findViewById(R.id.gridView);
@@ -63,7 +64,7 @@ public class MainActivityFragment extends Fragment {
 
     public class fetchMovieTask extends AsyncTask<String, Void, String[]> {
 
-        public String[] getMovieDataFromJson(String movieStr)
+        public Object[] getMovieDataFromJson(String movieStr)
                 throws JSONException {
             // These are the names of the JSON objects that need to be extracted.
             final String OBJ_BACKDROP_PATH = "backdrop_path";
@@ -77,41 +78,43 @@ public class MainActivityFragment extends Fragment {
             JSONArray resultsArray = filmJsonSorter.getJSONArray(OBJ_RESULTS);
             numberFilms =resultsArray.length();
 
-            String[] titleStrArray = new String[resultsArray.length()];
+            //String[] titleStrArray = new String[resultsArray.length()];
                      backdropPathStrArray = new String[resultsArray.length()];
-            String[] releaseDateStrArray = new String[resultsArray.length()];
+                     MovieObjectArray = new Object[resultsArray.length()];
+           /* String[] releaseDateStrArray = new String[resultsArray.length()];
             String[] userRatingStrArray = new String[resultsArray.length()];
-            String[] overviewStrArray = new String[resultsArray.length()];
+            String[] overviewStrArray = new String[resultsArray.length()];*/
 
 
             for(int y=0; y<resultsArray.length();y++) {
 
                 JSONObject movieInfo = resultsArray.getJSONObject(y);
+                String bdp= movieInfo.getString(OBJ_BACKDROP_PATH);
 
-                String bdp = movieInfo.getString(OBJ_BACKDROP_PATH);
-                backdropPathStrArray[y] = bdp;
-                Log.e(LOG_TAG,"backdrop path:"+bdp);
+               // backdropPathStrArray[y] = bdp;
+               // Log.e(LOG_TAG,"backdrop path:"+bdp);
 
                 String mtitle = movieInfo.getString(OBJ_TITLE);
-                titleStrArray[y] = mtitle;
+               // titleStrArray[y] = mtitle;
                 //Log.e(LOG_TAG,"title:"+tit);
 
                 String mdescription = movieInfo.getString(OBJ_OVERVIEW);
-                overviewStrArray[y] = mdescription;
+                //overviewStrArray[y] = mdescription;
                //Log.e(LOG_TAG,"description:"+description);
 
                 String reldat = movieInfo.getString(OBJ_RELEASE_DATE);
-                releaseDateStrArray[y] = reldat;
+                //releaseDateStrArray[y] = reldat;
                 //Log.e(LOG_TAG,"release date:"+reldat);
 
                 String ur = movieInfo.getString(OBJ_USER_RATING);
-                userRatingStrArray[y] = ur;
+                //userRatingStrArray[y] = ur;
                 //Log.e(LOG_TAG,"user rating:"+ur);
-
+                MovieObject MObject = new MovieObject(bdp,mtitle,mdescription,reldat,ur);
+                MovieObjectArray[0]=MObject;
             } //loop end
 
 
-            return null;
+            return MovieObjectArray;
 
         }
 
@@ -128,7 +131,7 @@ public class MainActivityFragment extends Fragment {
             try {
                 final String FORECAST_BASE_URL = "https://api.themoviedb.org/3/discover/movie?";
                 final String SORT_MODE = "sort_by";
-                final String KEY = "ed2d4035999bef82e38aeab256677ccf";
+                final String KEY = "";
                 final String API_KEY = "api_key";
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
@@ -184,7 +187,7 @@ public class MainActivityFragment extends Fragment {
             }
 
             try {
-                return getMovieDataFromJson(movieJsonStr);
+                getMovieDataFromJson(movieJsonStr);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
