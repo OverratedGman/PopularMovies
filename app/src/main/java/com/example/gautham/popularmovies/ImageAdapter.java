@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 public class ImageAdapter extends BaseAdapter
 {
 
-    private Object[] movieData;
+     MovieObject[] movieData;
     final String LOG_TAG = ImageAdapter.class.getSimpleName();
     private Context mContext;
     public static final  String BASE_URL = "http://image.tmdb.org/t/p/";
@@ -22,7 +22,7 @@ public class ImageAdapter extends BaseAdapter
     public ImageAdapter(Context c) {
         mContext = c;
     };
-    public ImageAdapter(Context c, Object[] movieDataObjectArray){
+    public ImageAdapter(Context c, MovieObject[] movieDataObjectArray){
         this(c);
         this.movieData = movieDataObjectArray;
     }
@@ -47,7 +47,7 @@ public class ImageAdapter extends BaseAdapter
         return 0;
     }
 
-    public void addAll(String[] Add){
+    public void addAll(MovieObject[] Add){
         movieData = Add;
     }
 
@@ -62,9 +62,9 @@ public class ImageAdapter extends BaseAdapter
         } else {
             imageView = (ImageView) convertView;
         }
-        Object temp = movieData[position];
-        Log.e(LOG_TAG,""+temp);
-        String url = String.format("%s/%s/%s", BASE_URL, IMAGE_SIZE);
+        MovieObject m =movieData[position];
+        Log.v(LOG_TAG,"BDP="+m.getBackDropPath());
+        String url = String.format("%s/%s/%s", BASE_URL, IMAGE_SIZE,m.getBackDropPath());
         Picasso.with(mContext).load(url).into(imageView);
         Log.v(LOG_TAG,"final url:"+url);
         return imageView;

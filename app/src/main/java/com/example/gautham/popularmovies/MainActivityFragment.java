@@ -26,7 +26,7 @@ public class MainActivityFragment extends Fragment {
 
     public String movieJsonStr = null;
     public static String[] backdropPathStrArray;
-    public static Object[] MovieObjectArray;
+    public static MovieObject[] MovieObjectArray;
     final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     public static int numberFilms =0;
     ImageAdapter imageAdapter;
@@ -62,7 +62,7 @@ public class MainActivityFragment extends Fragment {
     }
 
 
-    public class fetchMovieTask extends AsyncTask<String, Void, String[]> {
+    public class fetchMovieTask extends AsyncTask<String, Void, MovieObject[]> {
 
         public Object[] getMovieDataFromJson(String movieStr)
                 throws JSONException {
@@ -80,7 +80,7 @@ public class MainActivityFragment extends Fragment {
 
             //String[] titleStrArray = new String[resultsArray.length()];
                      backdropPathStrArray = new String[resultsArray.length()];
-                     MovieObjectArray = new Object[resultsArray.length()];
+                     MovieObjectArray = new MovieObject[resultsArray.length()];
            /* String[] releaseDateStrArray = new String[resultsArray.length()];
             String[] userRatingStrArray = new String[resultsArray.length()];
             String[] overviewStrArray = new String[resultsArray.length()];*/
@@ -110,9 +110,8 @@ public class MainActivityFragment extends Fragment {
                 //userRatingStrArray[y] = ur;
                 //Log.e(LOG_TAG,"user rating:"+ur);
                 MovieObject MObject = new MovieObject(bdp,mtitle,mdescription,reldat,ur);
-                MovieObjectArray[0]=MObject;
+                MovieObjectArray[y]=MObject;
             } //loop end
-
 
             return MovieObjectArray;
 
@@ -120,7 +119,7 @@ public class MainActivityFragment extends Fragment {
 
 
         @Override
-        protected String[] doInBackground(String... params) {
+        protected MovieObject[] doInBackground(String... params) {
             if (params.length == 0) {
 
                 return null;
@@ -131,7 +130,7 @@ public class MainActivityFragment extends Fragment {
             try {
                 final String FORECAST_BASE_URL = "https://api.themoviedb.org/3/discover/movie?";
                 final String SORT_MODE = "sort_by";
-                final String KEY = "";
+                final String KEY = "ed2d4035999bef82e38aeab256677ccf";
                 final String API_KEY = "api_key";
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
@@ -196,8 +195,8 @@ public class MainActivityFragment extends Fragment {
             return null;
         }
 
-        @Override
-        protected void onPostExecute(String[] ope) {
+       @Override
+        protected void onPostExecute(MovieObject[] ope) {
             super.onPostExecute(ope);
             if(ope != null) {
                 imageAdapter.clear();
