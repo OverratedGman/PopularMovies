@@ -1,5 +1,6 @@
 package com.example.gautham.popularmovies;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import org.json.JSONArray;
@@ -42,7 +44,16 @@ public class MainActivityFragment extends Fragment {
         // Set custom adapter to gridview
         GridView gridView = (GridView) rootView.findViewById(R.id.gridView);
         gridView.setAdapter(imageAdapter);
-
+       final Intent intent = new Intent(getActivity(), com.example.gautham.popularmovies.MovieDetail.class);
+        AdapterView.OnItemClickListener Listener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.v(LOG_TAG,position+"/+/"+id);
+                 intent.putExtra("key", position);
+                getActivity().startActivity(intent);
+            }
+        };
+        gridView.setOnItemClickListener(Listener);
 
         return rootView;
     }
@@ -170,7 +181,7 @@ public class MainActivityFragment extends Fragment {
                 Log.e(LOG_TAG, "Error with internet ", e);
                 // If the code didn't successfully get the movie data, there's no point in attemping
                 // to parse it.
-                return null;
+                return MovieObjectArray;
             } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
@@ -192,7 +203,7 @@ public class MainActivityFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            return null;
+            return MovieObjectArray;
         }
 
        @Override

@@ -17,4 +17,8 @@ public class MovieObject {
     public String getBackDropPath() {
         return mBackDropPath;
     }
+    public String getTitle(){return mTitle;}
+    public String getReleaseDate(){return mReleaseDate;}
+    public String getUserRating(){return mUserRating;}
+    public String getDescription(){return mDescription;}
 }
