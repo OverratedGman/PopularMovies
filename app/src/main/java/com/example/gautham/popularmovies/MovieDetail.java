@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -49,6 +50,7 @@ public class MovieDetail extends ActionBarActivity {
        releaseDateView.setText(movieObject.getReleaseDate());
        userRatingView.setText(movieObject.getUserRating());
        descriptionView.setText(movieObject.getDescription());
+       descriptionView.setMovementMethod(new ScrollingMovementMethod());
        String url = String.format("%s/%s/%s", BASE_URL, IMAGE_SIZE,movieObject.getBackDropPath());
        mContext = getApplicationContext();
        Picasso.with(mContext).load(url).into(imageView);
