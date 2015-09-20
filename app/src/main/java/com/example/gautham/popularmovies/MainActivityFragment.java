@@ -46,6 +46,7 @@ public class MainActivityFragment extends Fragment {
         GridView gridView = (GridView) rootView.findViewById(R.id.gridView);
         gridView.setAdapter(imageAdapter);
        final Intent intent = new Intent(getActivity(), com.example.gautham.popularmovies.MovieDetail.class);
+
         AdapterView.OnItemClickListener Listener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

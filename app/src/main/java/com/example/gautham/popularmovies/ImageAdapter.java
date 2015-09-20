@@ -33,7 +33,7 @@ public class ImageAdapter extends BaseAdapter
     }
 
     public void clear(){
-        movieData = new MovieObject[(0)];
+        movieData = null;
     }
 
     @Override

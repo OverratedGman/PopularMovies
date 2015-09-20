@@ -31,10 +31,9 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-         MainActivityFragment maf = new MainActivityFragment();
-        //noinspection SimplifiableIfStatement
+        MainActivityFragment maf = (MainActivityFragment)getSupportFragmentManager().findFragmentById(R.id.fragment);        //noinspection SimplifiableIfStatement
         if (id == R.id.popularMenuItem) {
-         maf.prefTemp="popular.desc";
+            maf.prefTemp="popularity.desc";
         }
         if (id == R.id.ratingMenuItem) {
             maf.prefTemp="vote_average.desc";
