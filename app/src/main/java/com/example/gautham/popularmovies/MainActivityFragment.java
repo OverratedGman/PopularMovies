@@ -125,8 +125,9 @@ public class MainActivityFragment extends Fragment {
             try {
                 final String FORECAST_BASE_URL = "https://api.themoviedb.org/3/discover/movie?";
                 final String SORT_MODE = "sort_by";
-                final String KEY = "ed2d4035999bef82e38aeab256677ccf";
+                final String KEY = "add your api key here";
                 final String API_KEY = "api_key";
+
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                         .appendQueryParameter(SORT_MODE, params[0])
