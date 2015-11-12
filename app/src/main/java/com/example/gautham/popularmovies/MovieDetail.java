@@ -45,10 +45,10 @@ public class MovieDetail extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_detail);
+        setContentView(R.layout.fragment_movie_detail);
         if(savedInstanceState ==null){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.movie_detail_view_main, new MovieDetailFragment())
+                    .add(R.id.movie_detail_view_fragment, new MovieDetailFragment())
                     .commit();
         }
         Intent intent = getIntent();
