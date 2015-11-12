@@ -5,5 +5,7 @@
     <string name="title_activity_movie_detail">MovieDetail</string>
     <string name="menutitle">Sort By Most Popular</string>
     <string name="menutitle2">Sort By Highest Rating</string>
-
+    <string name="trailerButtonText"> Trailer </string>
+    <string name="shareTrailerText">Share Trailer</string>
+    <string name="reviewButtonText"> Reviews </string>
     </resources>

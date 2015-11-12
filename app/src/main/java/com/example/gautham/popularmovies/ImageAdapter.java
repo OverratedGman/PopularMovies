@@ -65,7 +65,9 @@ public class ImageAdapter extends BaseAdapter
         MovieObject m =movieData[position];
         Log.v(LOG_TAG,"BDP="+m.getBackDropPath());
         String url = String.format("%s/%s/%s", BASE_URL, IMAGE_SIZE,m.getBackDropPath());
-        Picasso.with(mContext).load(url).into(imageView);
+        Picasso.with(mContext)
+                .load(url)
+                .into(imageView);
         Log.v(LOG_TAG,"final url:"+url);
         return imageView;
     }

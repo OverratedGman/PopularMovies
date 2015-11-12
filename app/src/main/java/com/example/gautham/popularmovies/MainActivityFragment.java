@@ -32,6 +32,8 @@ public class MainActivityFragment extends Fragment {
     final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     public static int numberFilms =0;
     ImageAdapter imageAdapter;
+    final static String KEY = "ed2d4035999bef82e38aeab256677ccf";
+    final static String API_KEY = "api_key";
     public static String prefTemp = "popularity.desc";
     public MainActivityFragment() {
     }
@@ -86,6 +88,7 @@ public class MainActivityFragment extends Fragment {
             final String OBJ_OVERVIEW = "overview";
             final String OBJ_RELEASE_DATE = "release_date";
             final String OBJ_USER_RATING = "vote_average";
+            final String OBJ_ID = "id";
 
             JSONObject filmJsonSorter = new JSONObject(movieStr);
             JSONArray resultsArray = filmJsonSorter.getJSONArray(OBJ_RESULTS);
@@ -104,7 +107,8 @@ public class MainActivityFragment extends Fragment {
                 String mdescription = movieInfo.getString(OBJ_OVERVIEW);
                 String reldat = movieInfo.getString(OBJ_RELEASE_DATE);
                 String ur = movieInfo.getString(OBJ_USER_RATING);
-                MovieObject MObject = new MovieObject(bdp,mtitle,mdescription,reldat,ur);
+                String id = movieInfo.getString(OBJ_ID);
+                MovieObject MObject = new MovieObject(bdp,mtitle,mdescription,reldat,ur,id);
                 MovieObjectArray[y]=MObject;
             } //loop end
 
@@ -125,8 +129,7 @@ public class MainActivityFragment extends Fragment {
             try {
                 final String FORECAST_BASE_URL = "https://api.themoviedb.org/3/discover/movie?";
                 final String SORT_MODE = "sort_by";
-                final String KEY = "enter you own api key here";
-                final String API_KEY = "api_key";
+
 
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
